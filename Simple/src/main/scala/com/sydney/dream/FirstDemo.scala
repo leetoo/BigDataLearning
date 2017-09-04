@@ -39,12 +39,8 @@ object FirstDemo {
     def main(args: Array[String]): Unit = {
         val conf = new SparkConf().setAppName("FirstDemo").setMaster("local[*]")
         val sc = new SparkContext(conf)
-//        val data = Array(1, 2, 3, 4, 5)
-//        val dataRdd = sc.parallelize(data)
-//        val dataTotal = dataRdd.reduce((x, y) => x + y)
-//        dataRdd.foreach(println)
-//        println(dataTotal)
-        val text = sc.textFile("file:///C:\\Users\\Sydney\\Desktop\\Spark-Demo\\Simple\\src\\main\\resources\\log1.txt");
+        val text = sc.textFile("file:///C:\\Users\\Sydney\\Desktop" +
+            "\\Spark-Demo\\Simple\\src\\main\\resources\\log1.txt");
         val data = text.filter(_.contains("female"));
         val femaleData:RDD[(String,Int)] = data.map{line =>
             val t= line.split(',')
