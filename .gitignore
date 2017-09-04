@@ -1,0 +1,6 @@
+.idea/
+*.iml
+target/
+*.swp
+.idea/vcs.xml
+javadocs/
