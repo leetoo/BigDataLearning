@@ -20,8 +20,8 @@ object SparkRddDemo {
         //输出总和
         println(dataTotal)
         //2，RDD 创建，从数据源如HDFS 或者本地文件系统创建
-        val text = sc.textFile("file:///C:\\Users\\Sydney\\Desktop" +
-            "\\Spark-Demo\\Simple\\src\\main\\resources\\log1.txt");
+        val path = ClassLoader.getSystemResource("log1.txt").getPath;
+        val text = sc.textFile(path);
         //过滤出含有female 的行。
         val data_log1 = text.filter(_.contains("female"));
         // 过滤得出数据中的第一列和第三列
@@ -33,7 +33,14 @@ object SparkRddDemo {
         val result = femaleData.filter(line => line._2 > 20)
         //筛选当天时间超过20分钟的人
         result.foreach(println)
-        System.in.read
 
+        //RDD算子(transformation 和 action)
+//        val rddOfFunc1 = text.map(SparkRddDemo.func1())
+//        rddOfFunc1.foreach(println)
+        System.in.read
+    }
+
+    def func1(s: String): String = {
+        s
     }
 }
