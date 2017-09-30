@@ -7,10 +7,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class Main {
@@ -106,6 +103,10 @@ public class Main {
         return "";
     }
 
+    /**
+     * select instr('123456', '23456')
+     * @param args
+     */
     public static void main(String[] args) {
         Connection conn = null;
         try {
@@ -115,8 +116,20 @@ public class Main {
             conn = DriverManager.getConnection("jdbc:phoenix:172.18.18.135:2181", props);
             ResultSet rs;
 //        rs = conn.createStatement().executeQuery("select facecomp('feature','feature') as related from \"objectinfo\" limit 100");
-            String sql = " select facecomp(\"feature\",\"feature\") as related from \"objectinfo\" limit 100";
-            rs = conn.createStatement().executeQuery(sql);
+//            String sql = " select facecomp(\"feature\",\"feature\") as related from \"objectinfo\" limit 100";
+            Table table = HBaseHelper.getTable("objectinfo");
+            Get get = new Get(Bytes.toBytes("0001111110105196601274112"));
+            Result result = table.get(get);
+            byte[] feature = result.getValue(Bytes.toBytes("person"), Bytes.toBytes("feature"));
+            String feature_str = new String(feature, "ISO8859-8");
+//            String sql = "select facecomp('"+feature_str + "','" + feature_str + "') as related ";
+            String sql = "select facecomp(\"feature\", ?) as related from \"objectinfo\" limit 100 ";
+            System.out.println(sql);
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, feature_str);
+//            pst.setString(2, feature_str);
+            rs = pst.executeQuery(sql);
             System.out.println(rs.next());
             System.out.println(rs.getFloat(1));
 //            System.out.println(rs.next());
@@ -135,12 +148,11 @@ public class Main {
 //            Result result1 = table.get(get);
 //            byte[] feature_02 = result.getValue(Bytes.toBytes("person"), Bytes.toBytes("feature"));
 //            String feature_02_str = new String(feature_01, "ISO8859-1");
-
-
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {

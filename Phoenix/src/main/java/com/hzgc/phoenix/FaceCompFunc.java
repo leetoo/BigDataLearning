@@ -88,6 +88,7 @@ public class FaceCompFunc extends ScalarFunction {
     }
 
     public static float featureCompare(String currentFeatureStr, String historyFeatureStr) {
+        System.out.println("curr, " + currentFeatureStr.length() + " ,his: " + historyFeatureStr.length());
         float[] currentFeature = string2floatArray(currentFeatureStr);
         float[] historyFeature = string2floatArray(historyFeatureStr);
         return featureCompare(currentFeature, historyFeature);
