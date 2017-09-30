@@ -77,6 +77,7 @@ public class FaceCompFunc extends ScalarFunction {
         String sourceStr = (String) PVarchar.INSTANCE.toObject(ptr, getChildren().get(0).getSortOrder());
 
         related = featureCompare(thePassStr, sourceStr);
+        LOG.info("related + " + related);
 
         ptr.set(PInteger.INSTANCE.toBytes(related));
         return true;
@@ -91,6 +92,8 @@ public class FaceCompFunc extends ScalarFunction {
         System.out.println("curr, " + currentFeatureStr.length() + " ,his: " + historyFeatureStr.length());
         float[] currentFeature = string2floatArray(currentFeatureStr);
         float[] historyFeature = string2floatArray(historyFeatureStr);
+        float related = featureCompare(currentFeature, historyFeature);
+        System.out.println(related);
         return featureCompare(currentFeature, historyFeature);
     }
 
@@ -111,6 +114,7 @@ public class FaceCompFunc extends ScalarFunction {
         if (actualValue >= 100) {
             return 100;
         }
+        System.out.println("related: " + actualValue);
         return (float) actualValue;
     }
 

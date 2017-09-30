@@ -105,6 +105,7 @@ public class Main {
 
     /**
      * select instr('123456', '23456')
+     * select facecomp("feature","feature") as related from "objectinfo" order by related  limit 100;
      * @param args
      */
     public static void main(String[] args) {
@@ -123,15 +124,15 @@ public class Main {
             byte[] feature = result.getValue(Bytes.toBytes("person"), Bytes.toBytes("feature"));
             String feature_str = new String(feature, "ISO8859-8");
 //            String sql = "select facecomp('"+feature_str + "','" + feature_str + "') as related ";
-            String sql = "select facecomp(\"feature\", ?) as related from \"objectinfo\" limit 100 ";
+            String sql = "select facecomp(?, ?) as related from \"objectinfo\" ";
             System.out.println(sql);
 
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, feature_str);
-//            pst.setString(2, feature_str);
+            pst.setString(2, feature_str);
             rs = pst.executeQuery(sql);
             System.out.println(rs.next());
-            System.out.println(rs.getFloat(1));
+            System.out.println(rs.getFloat("related"));
 //            System.out.println(rs.next());
 //            String feature = rs.getString(1);
 //            feature=floatArray2string(string2floatArray(feature));
