@@ -79,7 +79,7 @@ public class FaceCompFunc extends ScalarFunction {
         related = featureCompare(thePassStr, sourceStr);
         LOG.info("related + " + related);
 
-        ptr.set(PInteger.INSTANCE.toBytes(related));
+        ptr.set(PFloat.INSTANCE.toBytes(related));
         return true;
     }
 
