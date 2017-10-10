@@ -122,14 +122,15 @@ public class Main {
             Get get = new Get(Bytes.toBytes("0001111110105196601274112"));
             Result result = table.get(get);
             byte[] feature = result.getValue(Bytes.toBytes("person"), Bytes.toBytes("feature"));
-            String feature_str = new String(feature, "ISO8859-8");
+            String feature_str = Bytes.toString(feature);
+            System.out.println(feature_str);
 //            String sql = "select facecomp('"+feature_str + "','" + feature_str + "') as related ";
-            String sql = "select facecomp(?, ?) as related from \"objectinfo\" ";
+            String sql = "select facecomp(\"feature\", \"feature\") as related from \"objectinfo\" ";
             System.out.println(sql);
 
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, feature_str);
-            pst.setString(2, feature_str);
+//            pst.setString(1, feature_str);
+
             rs = pst.executeQuery(sql);
             System.out.println(rs.next());
             System.out.println(rs.getFloat("related"));

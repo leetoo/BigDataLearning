@@ -13,11 +13,14 @@ import org.apache.phoenix.schema.types.PFloat;
 import org.apache.phoenix.schema.types.PInteger;
 import org.apache.phoenix.schema.types.PVarchar;
 
-import java.io.UnsupportedEncodingException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import org.apache.log4j.Logger;
+
+import javax.imageio.ImageIO;
 
 @BuiltInFunction(name = FaceCompFunc.NAME,  args = {
         @Argument(allowedTypes = {PVarchar.class}),
@@ -28,7 +31,8 @@ public class FaceCompFunc extends ScalarFunction {
 
     private String thePassStr = null;
 
-    public FaceCompFunc(){}
+    public FaceCompFunc(){
+    }
 
     public FaceCompFunc(List<Expression> children) throws SQLException{
         super(children);
@@ -63,13 +67,15 @@ public class FaceCompFunc extends ScalarFunction {
         float related;
         if (ptr.getLength() == 0) {
             related = 0f;
+            System.out.println("================1");
             ptr.set(PFloat.INSTANCE.toBytes(related));
             return true;
         }
 
         //Logic for Empty string search
-        if (thePassStr == null || thePassStr.length() != 2048){
+        if (thePassStr == null){
             related = 0f;
+            System.out.println("===================2  + " + thePassStr);
             ptr.set(PFloat.INSTANCE.toBytes(related));
             return true;
         }
@@ -77,7 +83,9 @@ public class FaceCompFunc extends ScalarFunction {
         String sourceStr = (String) PVarchar.INSTANCE.toObject(ptr, getChildren().get(0).getSortOrder());
 
         related = featureCompare(thePassStr, sourceStr);
-        LOG.info("related + " + related);
+        System.out.println("related + " + related);
+        System.out.println("thePassStr" + thePassStr);
+        System.out.println("the feature in hbase " + sourceStr);
 
         ptr.set(PFloat.INSTANCE.toBytes(related));
         return true;
@@ -93,7 +101,7 @@ public class FaceCompFunc extends ScalarFunction {
         float[] currentFeature = string2floatArray(currentFeatureStr);
         float[] historyFeature = string2floatArray(historyFeatureStr);
         float related = featureCompare(currentFeature, historyFeature);
-        System.out.println(related);
+        System.out.println("===============" + related);
         return featureCompare(currentFeature, historyFeature);
     }
 
@@ -118,44 +126,57 @@ public class FaceCompFunc extends ScalarFunction {
         return (float) actualValue;
     }
 
-    public static float[] string2floatArray(String feature) {
-        float[] floatFeature;
-        if (null != feature && feature.length() > 0) {
-            try {
-                byte[] byteFeature = feature.getBytes("ISO-8859-1");
-                floatFeature = new float[byteFeature.length / 4];
-                byte[] buffer = new byte[4];
-                int countByte = 0;
-                int countFloat = 0;
-                while (countByte < byteFeature.length && countFloat < floatFeature.length) {
-                    buffer[0] = byteFeature[countByte];
-                    buffer[1] = byteFeature[countByte + 1];
-                    buffer[2] = byteFeature[countByte + 2];
-                    buffer[3] = byteFeature[countByte + 3];
-                    if (countByte % 4 == 0) {
-                        floatFeature[countFloat] = byte2float(buffer, 0);
-                    }
-                    countByte = countByte + 4;
-                    countFloat++;
+    private static final String SPLIT = ":";
+
+    /**
+     * 将特征值（float[]）转换为字符串（String）（内）（赵喆）
+     *
+     * @param feature 传入float[]类型的特征值
+     * @return 输出指定编码为UTF-8的String
+     */
+    public static String floatArray2string(float[] feature) {
+        if (feature != null && feature.length == 512) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i < feature.length; i++) {
+                if (i == 511) {
+                    sb.append(feature[i]);
+                } else {
+                    sb.append(feature[i]).append(":");
                 }
-                return floatFeature;
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
+            return sb.toString();
         }
-        return null;
+        return "";
     }
 
-    private static float byte2float(byte[] featureByte, int index) {
-        int l;
-        l = featureByte[index + 0];
-        l &= 0xff;
-        l |= ((long) featureByte[index + 1] << 8);
-        l &= 0xffff;
-        l |= ((long) featureByte[index + 2] << 16);
-        l &= 0xffffff;
-        l |= ((long) featureByte[index + 3] << 24);
-        return Float.intBitsToFloat(l);
+    /**
+     * 将特征值（String）转换为特征值（float[]）（内）（赵喆）
+     *
+     * @param feature 传入编码为UTF-8的String
+     * @return 返回float[]类型的特征值
+     */
+    public static float[] string2floatArray(String feature) {
+        if (feature != null && feature.length() > 0) {
+            float[] featureFloat = new float[512];
+            String[] strArr = feature.split(SPLIT);
+            for (int i = 0; i < strArr.length; i++) {
+                featureFloat[i] = Float.valueOf(strArr[i]);
+            }
+            return featureFloat;
+        }
+        return new float[0];
     }
 
+    /**
+     * 将byte[]型特征转化为float[]
+     *
+     * @param fea byte[]型特征
+     * @return float[]
+     */
+    public static float[] byteArr2floatArr(byte[] fea) {
+        if (null != fea && fea.length > 0) {
+            return string2floatArray(new String(fea));
+        }
+        return new float[0];
+    }
 }

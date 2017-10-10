@@ -15,6 +15,7 @@
         <module>Impala</module>
         <module>Hive</module>
         <module>Phoenix</module>
+        <module>Hbase</module>
     </modules>
 
     <properties>
