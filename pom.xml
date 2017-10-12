@@ -16,6 +16,8 @@
         <module>Hive</module>
         <module>Phoenix</module>
         <module>Hbase</module>
+        <module>Kafka</module>
+        <module>ElasticSearch</module>
     </modules>
 
     <properties>
