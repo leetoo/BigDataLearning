@@ -16,8 +16,9 @@
         <module>RocketMQ</module>
         <module>Distribution</module>
         <module>JNI</module>
-        <module>HBase2Es</module>
         <module>Util</module>
+        <module>Phoenix</module>
+        <!--<module>HBase2Es</module>-->
         <!--<module>ElasticSearch</module>-->
     </modules>
 

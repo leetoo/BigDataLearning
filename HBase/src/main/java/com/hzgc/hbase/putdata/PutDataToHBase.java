@@ -16,31 +16,6 @@ import java.util.*;
 public class PutDataToHBase {
     private static Logger LOG = Logger.getLogger(PutDataToHBase.class);
     private ObjectInfoHandlerImpl objectInfoHandler = new ObjectInfoHandlerImpl();
-    private static Map<String,byte[]> getPhotoName(String jsonFile, String photoPath){
-        String path = photoPath;
-        File f = new File(path);
-        Map<String,byte[]> map = new HashMap<>();
-        if (!f.exists()){
-            System.out.println(path + " not exists!");
-        }
-        File fa[] = f.listFiles();
-        for (int i = 0; i < fa.length; i ++ ){
-            File fs = fa[i];
-            if (fs.isDirectory()){
-                System.out.println(fs.getName() + "，这是个目录！！！");
-            } else {
-                String a = fs.getName().split(".jpg")[0];
-                try {
-                    byte[] photo = ImageToByte.image2byte(fs.getAbsolutePath());
-                    map.put(a,photo);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-       return map;
-   }
 
    private void putdate(String jsonFile, String photoPath){
        final BufferedMutator.ExceptionListener listener = new BufferedMutator.ExceptionListener() {
@@ -58,7 +33,7 @@ public class PutDataToHBase {
        Connection conn = HBaseHelper.getHBaseConnection();
        try {
            BufferedMutator mutator = conn.getBufferedMutator(params);
-           Map<String,byte[]> map = getPhotoName(jsonFile, photoPath);
+           Map<String,byte[]> map = PutDataUtil.getPhotoByName(photoPath);
            Set<String> set = map.keySet();
            Iterator it = set.iterator();
            List<Mutation> mutations = new ArrayList<>();
