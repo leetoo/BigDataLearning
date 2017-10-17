@@ -67,9 +67,13 @@ Kafka 集群中的每一个基点服务器称为Broker。
     <artifactId>kafka-clients</artifactId>
     <version>0.11.0.1</version>
 </dependency>
-
- 
  ```
+## consumer group
+```
+各个consumer 可以组成一个组，每个消息（TOPIC）只可以被组中的一个consumer消费，
+如果一个消息可以被多个consumer消费，则这些consumer必须处于不同的组。
+```
+ 
  
  
  

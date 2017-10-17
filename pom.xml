@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>Simple</module>
+        <module>SparkCore</module>
         <module>ElasitcSpark</module>
         <module>ScalaDemo</module>
         <module>Impala</module>
@@ -18,6 +18,7 @@
         <module>Hbase</module>
         <module>Kafka</module>
         <module>ElasticSearch</module>
+        <module>SparkSql</module>
     </modules>
 
     <properties>
