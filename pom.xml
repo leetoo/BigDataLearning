@@ -19,6 +19,7 @@
         <module>Kafka</module>
         <module>ElasticSearch</module>
         <module>SparkSql</module>
+        <module>SparkStreaming</module>
     </modules>
 
     <properties>

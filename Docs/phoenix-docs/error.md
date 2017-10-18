@@ -1,5 +1,5 @@
 ```
-phoenix 下的hbase-site.xml 加上
+phoenix 下bin 目录需要把hbase-site.xml 拷贝上。
 
 Error: ERROR 6003 (42F03): User defined functions are configured to not be allowed. 
 To allow configure phoenix.functions.allowUserDefinedFunctions to true. (state=42F03,code=6003)
