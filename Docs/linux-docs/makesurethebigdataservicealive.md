@@ -8,7 +8,10 @@
 ## Created:     2017-10-20
 ################################################################################
 
-#set -x
+set -x
+
+#crontab 里面不会读取jdk环境变量的值
+source /etc/profile
 
 cd `dirname  $0`
 BIN_DIR=`pwd`   #bin 目录
@@ -77,7 +80,7 @@ function make_sure_the_comsumer_service_alive()
     if [ -n "${consumer_pid}" ];then
         echo "consumer process is exit,do not need to do anything. exit with 0 " | tee -a $LOG_FILE
     else
-        echo "consumer process is not exit, just to restart ftp."  | tee -a $LOG_FILE
+        echo "consumer process is not exit, just to restart consumer."  | tee -a $LOG_FILE
         sh ${BIN_DIR}/start-consumer.sh
         echo "starting, please wait........" | tee -a $LOG_FILE
         sleep 10s
@@ -85,8 +88,8 @@ function make_sure_the_comsumer_service_alive()
         if [ -z "${consumer_pid_restart}" ];then
             echo "start cosumer failed.....,retrying to start it second time" | tee -a $LOG_FILE
             sh  ${BIN_DIR}/start-consumer.sh
-            sleep 10s
             echo "second try starting, please wait........" | tee -a $LOG_FILE
+            sleep 10s
             consumer_pid_retry=$(jps | grep ConsumerGroupsMain | awk '{print $1}')
             if [ -z  "${consumer_pid_retry}" ];then
                 echo "retry start comsumer failed, please check the config......exit with 1"  | tee -a $LOG_FILE
@@ -118,7 +121,7 @@ function make_sure_the_dubbo_service_alive()
     if [ -n "${dubbo_pid}" ];then
         echo "dubbo process is exit,do not need to do anything. exit with 0 " | tee -a $LOG_FILE
     else
-        echo "dubbo process is not exit, just to restart ftp."  | tee -a $LOG_FILE
+        echo "dubbo process is not exit, just to restart dubbo."  | tee -a $LOG_FILE
         sh ${BIN_DIR}/start-dubbo.sh
         echo "starting, please wait........" | tee -a $LOG_FILE
         sleep 3m
