@@ -3,6 +3,25 @@
 运行于HDFS 上的数据仓库  
 操作结构化的数据  
 用类似Mysql 的方式操作数据  
+## 架构
+用户接口（包括WebUI, Hive命令行，）  
+元存储，metastore  
+HiveQL处理引擎  
+执行引擎  
+HDFS或者HBase。
+## 工作流程
+hive 与Haddop 交互  
+1，客户端发送HQL Query到Dirver    
+2，Driver 把请求发送到Compiler 进行编译。  
+3，Compiler 向Metastore 请求元数据。  
+4，Metastore 向Compiler 返回元数据。  
+5，Driver 端获取Compiler 的查询分析和编译。  
+6，发送数据到执行引擎。  
+7，请求经由执行引擎发送到HDFS上执行Mapreduce的同时，请求操作Metastore。  
+8，HDFS 返回执行结果给执行引擎。  
+9，执行引擎把数据发给driver 端。  
+10，结果由driver 端返回给客户端。  
+
 ## 安装
 伪分布式的HDFS 上安装。
 ### 1，安装Mysql

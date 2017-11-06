@@ -77,9 +77,20 @@ Input DStream :一个input DStream是一个特殊的DStream，
 1,两种內建的流式数据源。
    一，基础数据源，在StreamingContext API 中可直接使用的源，
    如：文件系统，套接字连接或者Akka actor。
+   fileStream
+   textFileStream
+   actoryStream
+   queueStream
    二，高级数据源（Advanced sources）: 
    需要依赖额外工具类的源，如：Kafka、Flume、Kinesis、Twitter等数据源。
    这些数据源都需要增加额外的依赖，详见依赖的第三方jar包。
+   另外还可以自定义数据源。（你需要自定义一个Receiver）
  2，接收器
  专门从数据源拉取数据到内存中的对象。  
+ Reliable Receiver 
+ Unreliable Receiver 
 ```
+
+## Dstream 对应的算子（transformation 和action）
+### transform 算子
+

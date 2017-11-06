@@ -3,7 +3,6 @@ package com.sydney.dream
 
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 
 object TextFileStreamDemo {
     def main(args: Array[String]): Unit = {

@@ -11,7 +11,7 @@ object SparkSqlDemo {
 //                            .master("localhost")
 //                            .getOrCreate()
 //        runBasicDataFrameExample(sparkSession)
-        val conf = new SparkConf().setAppName("Spark SQL basic exampel").setMaster("local")
+        val conf = new SparkConf().setAppName("Spark SQL basic exampel").setMaster("local[*]")
         val sc = new SparkContext(conf)
         val sqlContext = new SQLContext(sc)
         val fs = sqlContext.read.json("SparkSql/src/main/resources/person.json")
