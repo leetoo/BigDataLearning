@@ -110,4 +110,12 @@ curl -XPUT 's105:9200/dynamic_demo?pretty' -H 'Content-Type: application/json' -
 '
 
 
+curl -XPUT 's109:9200/dynamic/_settings' -d '{
+    "index": {
+        "max_result_window": 1000000000
+    }
+}'
+
+
+
 ```
