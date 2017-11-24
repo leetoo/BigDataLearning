@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class FaceCompareFunction {
     private static final String SPLIT = ":";
 
-    public  double featureCompare(String currentFeatureStr, String historyFeatureStr) {
+    public  static double featureCompare(String currentFeatureStr, String historyFeatureStr) {
         float[] currentFeature = string2floatArray(currentFeatureStr);
         float[] historyFeature = string2floatArray(historyFeatureStr);
         if (currentFeature.length == 512 && historyFeature.length == 512) {
@@ -14,7 +14,7 @@ public class FaceCompareFunction {
         return 0;
     }
 
-    private  float[] string2floatArray(String feature) {
+    private static float[] string2floatArray(String feature) {
         if (feature != null && feature.length() > 0) {
             float[] featureFloat = new float[512];
             String[] strArr = feature.split(SPLIT);
@@ -29,7 +29,7 @@ public class FaceCompareFunction {
         }
         return new float[0];
     }
-    private  double featureCompare(float[] currentFeature, float[] historyFeature) {
+    private static double featureCompare(float[] currentFeature, float[] historyFeature) {
         double similarityDegree = 0;
         double currentFeatureMultiple = 0;
         double historyFeatureMultiple = 0;
