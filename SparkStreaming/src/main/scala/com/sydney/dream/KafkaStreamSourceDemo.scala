@@ -9,7 +9,10 @@ object KafkaStreamSourceDemo {
     def main(args: Array[String]): Unit = {
         val somethings =Array("192.168.59.128:9092", "first")
         val Array(brokers, topics) = somethings
-        val sparkConf = new SparkConf().setAppName("DirectKfkaWordCount").setMaster("local[*]")
+        val sparkConf = new SparkCo
+
+
+        nf().setAppName("DirectKfkaWordCount").setMaster("local[*]")
         val ssc = new StreamingContext(sparkConf, Seconds(2))
         val topicsSet = topics.split(",").toSet
         val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers)
