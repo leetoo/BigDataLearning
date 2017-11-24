@@ -20,6 +20,8 @@
         <module>ElasticSearch</module>
         <module>SparkSql</module>
         <module>SparkStreaming</module>
+        <module>Drill</module>
+        <module>SparkJDBCThriftServer</module>
     </modules>
 
     <properties>
