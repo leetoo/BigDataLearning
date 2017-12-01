@@ -22,6 +22,8 @@
         <module>SparkStreaming</module>
         <module>Drill</module>
         <module>SparkJDBCThriftServer</module>
+        <module>JavaBasic</module>
+        <module>ElasticPlugin</module>
     </modules>
 
     <properties>

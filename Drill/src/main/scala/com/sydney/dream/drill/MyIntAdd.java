@@ -1,6 +1,5 @@
 package com.sydney.dream.drill;
 
-import com.google.common.base.Strings;
 import io.netty.buffer.DrillBuf;
 import org.apache.drill.exec.expr.DrillSimpleFunc;
 import org.apache.drill.exec.expr.annotations.FunctionTemplate;
