@@ -1,5 +1,5 @@
 ## Standalone HA 搭建配置简单说明
-##### 1，首先搭建好Zookeper 和 Hadoop（HA 模式） 
+##### 1，首先搭建好Zookeper 和 Hadoop（HA 模式） 以及Hive
 ##### 2，下载后者自行编译jar 包，编译可以参考如下：
 ```
 1, 配置好maven 编译环境。
@@ -43,7 +43,7 @@ spark.eventLog.dir                                              hdfs://hzgc/spar
 #JDBC / ODBC Web UI历史记录中保存的SQL客户端会话的数量
 spark.sql.thriftserver.ui.retainedSessions                      200
 
-#--------------------------------------动态资源申请----------------------------------------#
+#--------------------------------------动态资源申请（如此模块的内容不）----------------------------------------#
 
 spark.shuffle.service.enabled                                   true
 ## spark.shuffle.servic.port 在standalone 的时候，会和yarn 的NodeManager 冲突，所以这个端口号可能得修改。

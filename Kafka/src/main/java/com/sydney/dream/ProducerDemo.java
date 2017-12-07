@@ -41,7 +41,7 @@ public class ProducerDemo {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10000; i++) {
             // send 方法是异步的，调价消息到缓冲区等待发送，就会立即返回。（当缓冲取大小达到一定程度时，有后台线程）
             // 进行统一的批量发送消息。
             //public Future<RecordMetadata> send(ProducerRecord<K,V> record,Callback callback)
