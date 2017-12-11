@@ -17,13 +17,13 @@
         <module>Phoenix</module>
         <module>Hbase</module>
         <module>Kafka</module>
-        <module>ElasticSearch</module>
         <module>SparkSql</module>
         <module>SparkStreaming</module>
         <module>Drill</module>
         <module>SparkJDBCThriftServer</module>
         <module>JavaBasic</module>
         <module>ElasticPlugin</module>
+        <module>ElasticSearch</module>
     </modules>
 
     <properties>
