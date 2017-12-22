@@ -13,7 +13,8 @@
 12，RockMq(Less Than Simple)  
 13，Docker（Nothing）  
 14，Jenkins(Upper)  
-15，Azkaban
+15，Azkaban  
+16, OpenStack and CEPH  
 # Conclusion The Year
 1，从零开始参与大数据项目架构，提供源码管理，编译，项目发布支撑，方便组员间的相互协作开发，提高项目管理的效率。  
 2，主持大数据开源集群搭建脚本规范和自动化部署安装，给大数据服务提供基础组件服务，自动化流程，减少项目部署时间。  
