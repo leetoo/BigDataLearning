@@ -24,7 +24,7 @@
         <module>JavaBasic</module>
         <module>ElasticPlugin</module>
         <module>ElasticSearch</module>
-        <module>Docs</module>
+        <module>AADocs</module>
         <module>Cloud</module>
         <module>FaceComDemo</module>
     </modules>
