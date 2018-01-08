@@ -21,12 +21,13 @@ LOG_DIR=${DEPLOY_DIR}/logs                       ## log 日记目录
 LOG_FILE=${LOG_DIR}/get-all-object-from-input-keys.log       ##  log 日记文件
 
 
-localObjectPath=$1
-key=$2
+localObjectPath=$1  ## where the path that photoes is store after get from ceph cluster
+ceph_keys=$2                ## the name of object where the object store in ceph cluster, the absolutely path in linux file System
 cephGWBalanceNode=$3
 accessKey=$4
 secretKey=$5
 bucketName=$6
+key=""
 
 #####################################################################
 # 函数名: test_ceph_client_haproxy_performance
@@ -51,7 +52,13 @@ function test_get_all_object_info()
 #####################################################################
 function main()
 {
-    test_get_all_object_info
+    count=0
+    for keyV1 in $(cat $ceph_keys);do
+        let count++
+        echo "get $count:    $keyV1"
+        key=$keyV1
+        test_get_all_object_info
+    done
 }
 
 ## 脚本主要业务入口

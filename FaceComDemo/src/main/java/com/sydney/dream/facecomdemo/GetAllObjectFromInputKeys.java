@@ -37,6 +37,7 @@ public class GetAllObjectFromInputKeys {
         Bucket bucket = new Bucket(bucketName);
         if (AmazonS3Util.checkBucketExists(conn, bucketName)) {
             System.out.println("输入的bucketName: " + bucketName + ", 在ceph 集群中不存在。");
+            System.exit(0);
         }
         //获取对象，并且保存到localObjectPath 中;
         AmazonS3Util.getObject(conn, bucket, key, localObjectPath + key);
