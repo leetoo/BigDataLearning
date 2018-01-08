@@ -9,6 +9,7 @@ import java.io.*;
 public class GetAllObjectFromInputKeys {
 
     public static void main(String[] args) throws IOException {
+        long start = System.currentTimeMillis();
         if (args.length != 6) {
             System.out.print("输入参数有误， args[0]: localObjectPath, 图片取出后放到的根路径。 \n" +
                     "args[1]: 需要取出的对象key， \n" +
@@ -51,6 +52,7 @@ public class GetAllObjectFromInputKeys {
             fileName = in.readLine();
             i++;
         }
+        System.out.println("取出 " + i + "条数据的时间为： " + (System.currentTimeMillis() - start));
         conn.shutdown();
     }
 }
