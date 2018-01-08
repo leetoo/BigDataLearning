@@ -7,7 +7,7 @@
 ## Author:      lidiliang
 ## Created:     2018-01-02
 ################################################################################
-#set -x  ## 用于调试用，不用的时候可以注释掉
+set -x  ## 用于调试用，不用的时候可以注释掉
 
 #---------------------------------------------------------------------#
 #                              定义变量                                #
@@ -15,11 +15,14 @@
 cd `dirname $0`
 BIN_DIR=`pwd`    ### bin目录
 cd ..
-LIB_DIR=$DEPLOY_DIR/lib        ## Jar 包目录
+DEPLOY_DIR=`pwd`
+LIB_DIR=${DEPLOY_DIR}/lib        ## Jar 包目录
 LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`    ## jar 包位置以及第三方依赖jar包，绝对路径
 LOG_DIR=${DEPLOY_DIR}/logs                       ## log 日记目录
 LOG_FILE=${LOG_DIR}/ceph-client-performance.log        ##  log 日记文件
 
+
+mkdir  -p  ${LOG_DIR}
 
 path=$1
 cephGWBalanceNode=$2
@@ -55,3 +58,4 @@ function main()
 
 ## 脚本主要业务入口
 main
+

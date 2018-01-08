@@ -7,7 +7,7 @@
 ## Author:      lidiliang
 ## Created:     2018-01-02
 ################################################################################
-#set -x  ## 用于调试用，不用的时候可以注释掉
+set -x  ## 用于调试用，不用的时候可以注释掉
 
 #---------------------------------------------------------------------#
 #                              定义变量                                #
@@ -15,19 +15,19 @@
 cd `dirname $0`
 BIN_DIR=`pwd`    ### bin目录
 cd ..
+DEPLOY_DIR=`pwd`
 LIB_DIR=$DEPLOY_DIR/lib        ## Jar 包目录
 LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`    ## jar 包位置以及第三方依赖jar包，绝对路径
 LOG_DIR=${DEPLOY_DIR}/logs                       ## log 日记目录
 LOG_FILE=${LOG_DIR}/get-all-object-from-input-keys.log       ##  log 日记文件
 
 
-localObjectPath=$1  ## where the path that photoes is store after get from ceph cluster
-ceph_keys=$2                ## the name of object where the object store in ceph cluster, the absolutely path in linux file System
+localObjectPath=$1
+key=$2
 cephGWBalanceNode=$3
 accessKey=$4
 secretKey=$5
 bucketName=$6
-key=""
 
 #####################################################################
 # 函数名: test_ceph_client_haproxy_performance
@@ -52,14 +52,9 @@ function test_get_all_object_info()
 #####################################################################
 function main()
 {
-    count=0
-    for keyV1 in $(cat $ceph_keys);do
-        let count++
-        echo "get $count:    $keyV1"
-        key=$keyV1
-        test_get_all_object_info
-    done
+    test_get_all_object_info
 }
+
 
 ## 脚本主要业务入口
 main

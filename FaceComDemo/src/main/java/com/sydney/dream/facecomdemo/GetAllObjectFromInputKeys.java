@@ -3,11 +3,12 @@ package com.sydney.dream.facecomdemo;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 
-import java.io.File;
+import javax.sound.midi.Soundbank;
+import java.io.*;
 
 public class GetAllObjectFromInputKeys {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length != 6) {
             System.out.print("输入参数有误， args[0]: localObjectPath, 图片取出后放到的根路径。 \n" +
                     "args[1]: 需要取出的对象key， \n" +
@@ -18,7 +19,7 @@ public class GetAllObjectFromInputKeys {
             System.exit(0);
         }
         String localObjectPath = args[0];
-        String key = args[1];
+        String cephKeys = args[1];
         String cephGWBalanceNode = args[2];
         String accessKey = args[3];
         String secretKey = args[4];
@@ -35,13 +36,21 @@ public class GetAllObjectFromInputKeys {
         }
 
         Bucket bucket = new Bucket(bucketName);
-        if (AmazonS3Util.checkBucketExists(conn, bucketName)) {
+        if (!AmazonS3Util.checkBucketExists(conn, bucketName)) {
             System.out.println("输入的bucketName: " + bucketName + ", 在ceph 集群中不存在。");
             System.exit(0);
         }
-        //获取对象，并且保存到localObjectPath 中;
-        AmazonS3Util.getObject(conn, bucket, key, localObjectPath + key);
 
-
+        BufferedReader in = new BufferedReader(new FileReader(cephKeys));
+        String fileName = in.readLine();
+        int i = 1;
+        while (fileName != null && !"".equals(fileName)) {
+            //获取对象，并且保存到localObjectPath 中;
+            AmazonS3Util.getObject(conn, bucket, fileName, localObjectPath + fileName);
+            System.out.println("第" + i + " 个: " + fileName);
+            fileName = in.readLine();
+            i++;
+        }
+        conn.shutdown();
     }
 }
