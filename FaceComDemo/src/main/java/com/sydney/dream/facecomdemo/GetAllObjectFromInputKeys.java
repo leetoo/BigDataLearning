@@ -52,7 +52,7 @@ public class GetAllObjectFromInputKeys {
             fileName = in.readLine();
             i++;
         }
-        System.out.println("取出 " + i + "条数据的时间为： " + (System.currentTimeMillis() - start));
+        System.out.println("取出 " + i + " ge object 的时间为： " + (System.currentTimeMillis() - start));
         conn.shutdown();
     }
 }

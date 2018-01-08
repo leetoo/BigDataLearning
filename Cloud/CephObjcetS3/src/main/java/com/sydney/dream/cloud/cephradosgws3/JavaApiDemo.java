@@ -168,15 +168,15 @@ public class JavaApiDemo {
 
     public static void main(String[] args) throws IOException {
        //获取连接
-//        AmazonS3 conn = getAmazonS3Connection("YQ3K0RET31WN5T46W2D5",
-//                "LDsXa0QdIE8meE52wN374Ai7Qsa6D6i51SNTOVOD", "172.18.18.136:9999");
+        AmazonS3 conn = getAmazonS3Connection("5Z2E27YG6Y8Y98LD1C9U",
+                "NZiNOea7igxAOHu3Sd81tQNl8H5SGAmmtNQPmJcX", "172.18.18.139:8888");
 
          //列出所有的Bucket
 //        getBuckets(conn);
 
         //在Ceph创建bucket
 //        Bucket bucket = createBucket(conn, "my-new-bucket01");
-        Bucket bucket = new Bucket("my-new-bucket-test");  // bucket 对象
+        Bucket bucket = new Bucket("mydemo02");  // bucket 对象
 
         //创建对象，对象内容为hello,world!!,
 //        putObjectToCeph(conn, bucket, "Tulips5.jps", Image2Byte2Image.image2byte("D:\\Tulips.jpg"));
@@ -194,13 +194,13 @@ public class JavaApiDemo {
 //         deleteBucket(conn, bucket);
 
         //获取object
-//        getObject(conn, bucket, "hello1.txt", "D:\\hello1.txt");
+        getObject(conn, bucket, "ebde2f62-95ba-46e4-a54e-2c8eb10000f9-2017_12_24_17_08_19_294_1.jpg", "D:\\hello1.jpg");
 
         //删除object
 //        deleteObject(conn, bucket, "hello1.txt");
 
         //生成带签名的url
 //        System.out.println(getURLOfObjectWithSighnature(conn, bucket, "Tulips.jps"));
-        System.out.println("/usr/niya/hello.txt".substring(0, "/usr/niya/hello.txt".lastIndexOf("/")));
+//        System.out.println("/usr/niya/hello.txt".substring(0, "/usr/niya/hello.txt".lastIndexOf("/")));
     }
 }
