@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 ## Copyright:   HZGOSUN Tech. Co, BigData
-## Filename:    ceph-client-performance.sh
+## Filename:    ceph-save-object-demoV1.sh
 ## Description: ceph haproxy 负载均衡测试，
 ## Version:     1.0
 ## Author:      lidiliang
@@ -19,7 +19,7 @@ DEPLOY_DIR=`pwd`
 LIB_DIR=${DEPLOY_DIR}/lib        ## Jar 包目录
 LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`    ## jar 包位置以及第三方依赖jar包，绝对路径
 LOG_DIR=${DEPLOY_DIR}/logs                       ## log 日记目录
-LOG_FILE=${LOG_DIR}/ceph-client-performance.log        ##  log 日记文件
+LOG_FILE=${LOG_DIR}/ceph-save-object-demoV1.log       ##  log 日记文件
 
 
 mkdir  -p  ${LOG_DIR}

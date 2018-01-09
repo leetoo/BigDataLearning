@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 ## Copyright:   HZGOSUN Tech. Co, BigData
-## Filename:    get-all-object-from-input-keys.sh
+## Filename:    ceph-get-object-demo-V1.sh
 ## Description: 取出所有对象文件
 ## Version:     1.0
 ## Author:      lidiliang
@@ -19,7 +19,7 @@ DEPLOY_DIR=`pwd`
 LIB_DIR=$DEPLOY_DIR/lib        ## Jar 包目录
 LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`    ## jar 包位置以及第三方依赖jar包，绝对路径
 LOG_DIR=${DEPLOY_DIR}/logs                       ## log 日记目录
-LOG_FILE=${LOG_DIR}/get-all-object-from-input-keys.log       ##  log 日记文件
+LOG_FILE=${LOG_DIR}/ceph-get-object-demo-V1.log      ##  log 日记文件
 
 
 localObjectPath=$1
