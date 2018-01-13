@@ -53,6 +53,13 @@ jdbcDF .filter("id = 1 or c1 = 'b'" ).show()
 
 select 操作
 jdbcDF.select( "id" , "c3" ).show( false)
+
+
+兩個相同的操作
+dfDemo.select(dfDemo("ipcid"), dfDemo("ipcid") + 1)
+
+import sparkSession.implicits._
+dfDemo.select($"ipcid", $"eyeglasses" + "1").show()
 ```
 
 
