@@ -60,6 +60,13 @@ dfDemo.select(dfDemo("ipcid"), dfDemo("ipcid") + 1)
 
 import sparkSession.implicits._
 dfDemo.select($"ipcid", $"eyeglasses" + "1").show()
+
+
+selectExpr：可以对指定字段进行特殊处理 
+　　可以直接对指定字段调用UDF函数，或者指定别名等。传入String类型参数，得到DataFrame对象。 
+　　示例，查询id字段，c3字段取别名time，c4字段四舍五入：
+
+jdbcDF .selectExpr("id" , "c3 as time" , "round(c4)" ).show(false)
 ```
 
 
