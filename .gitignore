@@ -8,3 +8,4 @@ data/
 spark-warehouse/
 ~$*.docx
 ~$*.~vsdx
+~$*.xlsx
